@@ -46,7 +46,7 @@ const configure = options => {
 }
 
 // Send when the display turns on
-display.addEventListener('change', () => {
+display.addEventListener("change", () => {
   if (display.on) {
     send()
   }
