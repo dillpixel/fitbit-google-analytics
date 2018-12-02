@@ -5,7 +5,9 @@ import { readFileSync, writeFileSync } from "fs"
 
 const debug = false
 
+// Default options
 let tracking_id = null
+let data_source = null
 let include_queue_time = "sometimes"
 
 // Set default screen size for old firmware
@@ -28,6 +30,7 @@ const send = () => {
     asap.send({
       tracking_id: tracking_id,
       client_id: client_id,
+      data_source: data_source,
       include_queue_time: include_queue_time,
       resolution: me.screen.width + "x" + me.screen.height,
       timestamp: Date.now()
@@ -36,8 +39,9 @@ const send = () => {
 }
 
 const configure = options => {
-  tracking_id = options.tracking_id || null
-  include_queue_time = options.include_queue_time || "sometimes"
+  tracking_id = options.tracking_id || tracking_id
+  data_source = options.data_source || data_source
+  include_queue_time = options.include_queue_time || include_queue_time
   send()
 }
 

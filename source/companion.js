@@ -13,6 +13,10 @@ asap.onmessage = message => {
     "el=Display%20On",
     "sr=" + message.resolution
   ]
+  // Handle the data source parameter
+  if (message.data_source) {
+    query.push("ds=" + encodeURIComponent(message.data_source))
+  }
   // Handle the queue time parameter
   const queue_time = Date.now() - message.timestamp
   if (message.include_queue_time == "always" || (message.include_queue_time == "sometimes" && queue_time < 14400000)) {

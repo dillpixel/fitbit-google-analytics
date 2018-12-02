@@ -1,5 +1,12 @@
 # Fitbit Google Analytics
-Integrate analytics into your Fitbit OS app or clock face with just a few lines of code. Fitbit Google Analytics will automatically register an event each time the display turns on. A client ID is created for each installation, allowing Google Analytics to anonymously identify unique users. The [Fitbit ASAP](https://github.com/dillpixel/fitbit-asap) module is used to cache events on the device and send them to the companion once a connection becomes available.
+Integrate Google Analytics into your Fitbit OS app or clock face with just a few lines of code. Aggregated data includes the following:
+* active users
+* data sources (for tracking multiple apps)
+* display-on events (akin to page views)
+* geographic locations
+* screen resolution (Ionic or Versa)
+
+This module creates a client ID for each installation, allowing Google Analytics to anonymously identify unique users. The [Fitbit ASAP](https://github.com/dillpixel/fitbit-asap) module is used internally to cache events on the device and send them to the companion once a connection becomes available.
 ## Usage
 This module assumes you're using the [Fitbit CLI](https://dev.fitbit.com/build/guides/command-line-interface/) in your workflow, which allows you to manage packages using [npm](https://docs.npmjs.com/about-npm/).
 #### Installation
@@ -20,6 +27,7 @@ You'll also need to add permissions for `access_internet` and `run_background` i
 import analytics from "fitbit-google-analytics/app"
 analytics.configure({
   tracking_id: "UA-53202074-3",
+  data_source: "My App",
   include_queue_time: "sometimes" // Default
 })
 ```
@@ -29,10 +37,13 @@ import "fitbit-google-analytics/companion"
 ```
 ## API
 ### `analytics.configure(options)`
-Configures Google Analytics.
-#### `options.tracking_id`
+Configure Google Analytics
+
+##### `options.tracking_id` **string** *(required)*
 Your Google Analytics tracking ID.
-#### `options.include_queue_time`
+##### `options.data_source` **string**
+The source of the data. This can be used to track multiple apps with a single tracking ID.
+##### `options.include_queue_time` **string**
 When to include the Google Analytics [queue time](https://developers.google.com/analytics/devguides/collection/protocol/v1/parameters#qt) parameter.
 * `sometimes` *(default)*
 * `always`
