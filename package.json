@@ -1,7 +1,7 @@
 {
   "name": "fitbit-google-analytics",
   "version": "1.0.3",
-  "description": "Integrate Google Analytics into your Fitbit OS app or clock face with a few lines of code.",
+  "description": "Integrate Google Analytics into your Fitbit OS app with just a few lines of code.",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/dillpixel/fitbit-google-analytics.git"

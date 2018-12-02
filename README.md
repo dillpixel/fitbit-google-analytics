@@ -1,5 +1,5 @@
 # Fitbit Google Analytics
-Integrate Google Analytics into your Fitbit OS app or clock face with just a few lines of code. Aggregated data includes the following:
+Integrate Google Analytics into your Fitbit OS app with just a few lines of code. Aggregated data includes the following:
 * active users
 * data sources (for tracking multiple apps)
 * display-on events (akin to page views)
@@ -27,7 +27,7 @@ You'll also need to add permissions for `access_internet` and `run_background` i
 import analytics from "fitbit-google-analytics/app"
 analytics.configure({
   tracking_id: "UA-53202074-3",
-  data_source: "My App",
+  data_source: "My App", // Optional
   include_queue_time: "sometimes" // Default
 })
 ```
@@ -37,7 +37,7 @@ import "fitbit-google-analytics/companion"
 ```
 ## API
 ### `analytics.configure(options)`
-Configure Google Analytics
+Configure the module. The only required option is `tracking_id`.
 
 ##### `options.tracking_id` **string** *(required)*
 Your Google Analytics tracking ID.

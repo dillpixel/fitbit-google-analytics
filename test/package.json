@@ -9,7 +9,10 @@
     "appDisplayName": "Fitbit Google Analytics",
     "iconFile": "resources/icon.png",
     "wipeColor": "#ffffff",
-    "requestedPermissions": [],
+    "requestedPermissions": [
+      "access_internet",
+      "run_background"
+    ],
     "buildTargets": [
       "higgs",
       "meson"
