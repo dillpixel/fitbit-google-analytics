@@ -1,0 +1,30 @@
+{
+  "name": "fitbit-google-analytics-test",
+  "version": "1.0.2",
+  "private": true,
+  "license": "MIT",
+  "fitbit": {
+    "appUUID": "1d013f32-a811-46cd-b726-32b153343d2b",
+    "appType": "clockface",
+    "appDisplayName": "Fitbit Google Analytics",
+    "iconFile": "resources/icon.png",
+    "wipeColor": "#ffffff",
+    "requestedPermissions": [],
+    "buildTargets": [
+      "higgs",
+      "meson"
+    ],
+    "i18n": {}
+  },
+  "devDependencies": {
+    "@fitbit/sdk": "~1.0.4",
+    "@fitbit/sdk-cli": "^1.0.2"
+  },
+  "dependencies": {
+    "fitbit-asap": "^1.0.4"
+  },
+  "scripts": {
+    "build": "fitbit-build",
+    "debug": "fitbit"
+  }
+}

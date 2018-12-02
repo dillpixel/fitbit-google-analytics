@@ -1,0 +1,6 @@
+<svg viewport-fill="black">
+  <use id="mixedtext" href="#mixed-text-center-mid" height="100%" fill="fb-magenta">
+    <set href="#header/text" attributeName="text-buffer" to="Fitbit Google Analytics"/>
+    <set href="#copy/text" attributeName="text-buffer" to="Integrate Google Analytics into your app or clock face."/>
+  </use>
+</svg>
