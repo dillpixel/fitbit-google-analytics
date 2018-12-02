@@ -46,11 +46,11 @@ const configure = options => {
 }
 
 // Send when the display turns on
-display.onchange = () => {
+display.addEventListener('change', () => {
   if (display.on) {
     send()
   }
-}
+})
 
 const analytics = {
   configure: configure
