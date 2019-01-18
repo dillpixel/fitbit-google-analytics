@@ -1,8 +1,10 @@
 import { me as appbit } from "appbit"
 import { me as device } from "device"
 import { display } from "display"
-import asap from "fitbit-asap/app"
 import { readFileSync, writeFileSync } from "fs"
+
+import { outbox } from "file-transfer";
+import { encode } from "cbor";
 
 const debug = true
 
@@ -58,7 +60,17 @@ const send = (options) => {
   // Add custom dimensions and metrics
   data.custom_dimensions = options.custom_dimensions ? custom_dimensions.concat(options.custom_dimensions) : custom_dimensions
   data.custom_metrics = options.custom_metrics ? custom_metrics.concat(options.custom_metrics) : custom_metrics
-  asap.send(data)
+  //asap.send(data)
+  //TODO
+  sendFile("google.txt", data)
+}
+
+const sendFile = (filename, data) => {
+  outbox.enqueue(filename, encode(data)).then(function (ft) {
+    debug && console.log("APP - messaging.js: Successfully transfered '" + filename + "' to companion.")
+  }).catch(function (error) {
+    debug && console.log("APP - messaging.js: Failed to transfer '" + filename + "'. Error: " + error)
+  });
 }
 
 //====================================================================================================
@@ -67,6 +79,7 @@ const send = (options) => {
 
 // Send a hit on load
 const onload = () => {
+  debug && console.log("App: Event")
   send({
     hit_type: "event",
     event_category: "Lifecycle",
