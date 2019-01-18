@@ -1,8 +1,13 @@
-import asap from "fitbit-asap/companion"
+import { inbox } from "file-transfer";
+import { encode } from "cbor";
 
 const debug = true
 
-asap.onmessage = message => {
+//TODO
+//asap.onmessage = message => {
+const sendToGoogle = (message) => {
+  debug && console.log("COMPANION - Message Received " + JSON.stringify(message))
+  
   const query = [
     "v=1",
     "tid=" + message.tracking_id,
@@ -47,3 +52,30 @@ asap.onmessage = message => {
     body: query.join("&")
   })
 }
+
+const processAllFiles = async () => {
+  debug && console.log("COMPANION - Checking for files...")
+  
+  let file
+  while((file = await inbox.pop())) {
+    debug && console.log("COMPANION - File found!")
+    const payload = await file.cbor()
+    debug && console.log("COMPANION - File: " + file.name);
+    sendToGoogle(payload)
+  }
+}
+
+const initialize = () => {
+  inbox.addEventListener("newfile", processAllFiles);
+  processAllFiles();
+}
+
+//====================================================================================================
+// Exports
+//====================================================================================================
+
+const analytics = {
+  initialize: initialize
+}
+
+export default analytics
