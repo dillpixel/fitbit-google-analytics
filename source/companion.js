@@ -61,7 +61,7 @@ const processAllFiles = async () => {
     debug && console.log("COMPANION - File found!")
     const payload = await file.cbor()
     debug && console.log("COMPANION - File: " + file.name);
-    sendToGoogle(payload)
+    if(file.name === "google.txt") sendToGoogle(payload)
   }
 }
 
