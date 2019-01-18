@@ -37,12 +37,12 @@ import "fitbit-google-analytics/companion"
 ```
 ## Guide
 #### Client ID
-Upon installation, this module creates a persistent client ID to anonymously identify the device. This allows Google Analytics to generate accurate reports of user-based metrics like *Active Users*.
+Upon installation, a persistent client ID is created to anonymously identify the device. This allows Google Analytics to generate accurate reports of user-based metrics like *Active Users*.
 #### Automatic Hits
-Once installed, this module will automatically send the following hits, all of which have a hit type of `event`:
-* `Load` is emitted after the app is loaded.
+Fitbit Google Analytics will automatically send the following hits, all of which have a hit type of `event`:
+* `Load` is emitted each time the app is loaded.
 * `Display On` is emitted each time the device display turns on.
-* `Unload` is emitted before the app is unloaded.
+* `Unload` is emitted each time the app is unloaded.
 #### Custom Hits
 In addition to automatic hits, you can also send your own custom hits. Supported hit types include `event` and `screenview`.
 ##### Event
@@ -62,7 +62,7 @@ analytics.send({
 })
 ```
 #### Custom Dimensions and Metrics
-You can use custom dimensions and metrics to augment your data beyond what is automatically provided by Fitbit Google Analytics. When the `custom_dimensions` and `custom_metrics` options are passed into `analytics.configure()`, the specified dimensions and metrics are associated with *every* hit, including automatic hits. When these options are passed into `analytics.send()`, the specified dimensions and metrics are only associated with a *single* hit.
+You can use custom dimensions and metrics to augment your data beyond what is automatically provided by Google Analytics. When the `custom_dimensions` and `custom_metrics` options are passed into `analytics.configure()`, the specified dimensions and metrics are associated with *every* hit, including automatic hits. When these options are passed into `analytics.send()`, the specified dimensions and metrics are only associated with a *single* hit.
 
 To get started, you'll first need to [create a custom dimension or metric in Google Analytics](https://support.google.com/analytics/answer/2709829?hl=en). Once created, an index number will be assigned, which corresponds to the `index` parameter of the objects passed into the `custom_dimensions` and `custom_metrics` properties.
 ##### Custom Dimension
