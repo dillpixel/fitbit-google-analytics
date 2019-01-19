@@ -89,8 +89,6 @@ analytics.send({
 The concept of a *session* is not always meaningful in the context of smart watch apps—particularly in the case of clock faces, which are nearly always running. If you do analyze session metrics, be sure to keep the following points in mind:
 * Due to intermittent connectivity, there will oftentimes be delays between events and their corresponding hits. As a result, any data derived from hit timing (including session metrics) will likely contain inaccuracies. However, you may find that overall trends in session metrics are still useful.
 * The default session timeout is 30 minutes, but this [can be adjusted](https://support.google.com/analytics/answer/2795871?hl=en).
-#### Dependencies
-The [Fitbit ASAP](https://github.com/dillpixel/fitbit-asap) module is used internally to cache events on the device and send them to the companion once a connection becomes available.
 ## API
 ### `analytics.configure(options)`
 Configure the module. The only required option is `tracking_id`.
