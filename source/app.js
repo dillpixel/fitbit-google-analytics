@@ -60,9 +60,9 @@ const send = (options) => {
   // Add custom dimensions and metrics
   data.custom_dimensions = options.custom_dimensions ? custom_dimensions.concat(options.custom_dimensions) : custom_dimensions
   data.custom_metrics = options.custom_metrics ? custom_metrics.concat(options.custom_metrics) : custom_metrics
-  //asap.send(data)
-  //TODO
-  sendFile("google.txt", data)
+  
+  const filename = "_google_analytics_" + (Math.floor(Math.random() * 10000000000000000)) + ".txt"
+  sendFile(filename, data)
 }
 
 const sendFile = (filename, data) => {
