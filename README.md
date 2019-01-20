@@ -11,7 +11,7 @@ Integrate Google Analytics into your Fitbit OS app with just a few lines of code
 ## Installation
 This module assumes you're using the [Fitbit CLI](https://dev.fitbit.com/build/guides/command-line-interface/) in your workflow, which allows you to manage packages using [npm](https://docs.npmjs.com/about-npm/).
 ```
-npm i fitbit-google-analytics
+npm install fitbit-google-analytics
 ```
 #### Permissions
 You'll also need to add permissions for `access_internet` and `run_background` in your `package.json` file.
@@ -98,6 +98,10 @@ Your Google Analytics tracking ID.
 The source of the data. This can be used to track multiple apps with a single tracking ID.
 ##### `options.user_language` **string**
 A language code representing the user's preferred language (e.g. `en-us`).
+##### `options.anonymize_ip` **number**
+Whether or not the IP address of the sender will be anonymized. This is useful for GDPR compliance.
+* `0` Disabled
+* `1` Enabled *(default)*
 ##### `options.custom_dimensions` **Array**
 An array of global custom dimensions to be associated with *every* hit. Each custom dimension is represented by an object with the following properties:
 * `index` **number** *(required)*

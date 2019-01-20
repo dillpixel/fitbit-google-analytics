@@ -1,24 +1,15 @@
 import { me as appbit } from "appbit"
+import { encode } from "cbor"
 import { me as device } from "device"
 import { display } from "display"
+import { outbox } from "file-transfer"
 import { readFileSync, writeFileSync } from "fs"
 
-import { outbox } from "file-transfer";
-import { encode } from "cbor";
-
-const debug = true
+const debug = false
 
 //====================================================================================================
 // Configure
 //====================================================================================================
-
-// Global options
-let tracking_id = null
-let data_source = null
-let user_language = null
-let custom_dimensions = []
-let custom_metrics = []
-let include_queue_time = "sometimes"
 
 // Get the client ID or create a new one
 try {
@@ -28,11 +19,21 @@ try {
   writeFileSync("_google_analytics_client_id", client_id, "cbor")
 }
 
+// Set defaults
+let tracking_id = null
+let data_source = null
+let user_language = null
+let anonymize_ip = 1
+let custom_dimensions = []
+let custom_metrics = []
+let include_queue_time = "sometimes"
+
 // Update global options
 const configure = options => {
   tracking_id = options.tracking_id || tracking_id
   data_source = options.data_source || data_source
   user_language = options.user_language || user_language
+  anonymize_ip = options.anonymize_ip === 0 ? 0 : anonymize_ip
   custom_dimensions = options.custom_dimensions || custom_dimensions
   custom_metrics = options.custom_metrics || custom_metrics
   include_queue_time = options.include_queue_time || include_queue_time
@@ -44,7 +45,6 @@ const configure = options => {
 //====================================================================================================
 
 const send = (options) => {
-  debug && console.log("App --> Companion")
   debug && console.log("Tracking ID: " + tracking_id)
   debug && console.log("Client ID: " + client_id)
   const data = options
@@ -53,6 +53,7 @@ const send = (options) => {
   data.client_id = client_id
   data.data_source = data_source
   data.user_language = user_language
+  data.anonymize_ip = anonymize_ip
   data.include_queue_time = include_queue_time
   // Add calculated parameters
   data.screen_resolution = device.screen ? (device.screen.width + "x" + device.screen.height) : "348x250"
@@ -60,17 +61,14 @@ const send = (options) => {
   // Add custom dimensions and metrics
   data.custom_dimensions = options.custom_dimensions ? custom_dimensions.concat(options.custom_dimensions) : custom_dimensions
   data.custom_metrics = options.custom_metrics ? custom_metrics.concat(options.custom_metrics) : custom_metrics
-  
-  const filename = "_google_analytics_" + (Math.floor(Math.random() * 10000000000000000)) + ".txt"
-  sendFile(filename, data)
-}
-
-const sendFile = (filename, data) => {
-  outbox.enqueue(filename, encode(data)).then(function (ft) {
-    debug && console.log("APP - messaging.js: Successfully transfered '" + filename + "' to companion.")
+  // Generate a unique filename
+  const filename = "_google_analytics_" + (Math.floor(Math.random() * 10000000000000000))
+  // Enqueue the file
+  outbox.enqueue(filename, encode(data)).then(() => {
+    debug && console.log("File: " + filename + " transferred successfully.")
   }).catch(function (error) {
-    debug && console.log("APP - messaging.js: Failed to transfer '" + filename + "'. Error: " + error)
-  });
+    debug && console.log("File: " + filename + " failed to transfer.")
+  })
 }
 
 //====================================================================================================
@@ -79,7 +77,6 @@ const sendFile = (filename, data) => {
 
 // Send a hit on load
 const onload = () => {
-  debug && console.log("App: Event")
   send({
     hit_type: "event",
     event_category: "Lifecycle",
