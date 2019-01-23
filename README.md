@@ -9,9 +9,13 @@ Integrate Google Analytics into your Fitbit OS app with just a few lines of code
 * screen resolution (Ionic or Versa)
 * user language
 ## Installation
-This module assumes you're using the [Fitbit CLI](https://dev.fitbit.com/build/guides/command-line-interface/) in your workflow, which allows you to manage packages using [npm](https://docs.npmjs.com/about-npm/).
+This module assumes you're using the [Fitbit CLI](https://dev.fitbit.com/build/guides/command-line-interface/) in your workflow, which allows you to manage packages using [npm](https://docs.npmjs.com/about-npm/). If you're targeting SDK 3.0 or higher, you can install the latest version:
 ```
 npm install fitbit-google-analytics
+```
+If you're targeting an older SDK, you'll need to install an older version:
+```
+npm install fitbit-google-analytics@1.1.0
 ```
 #### Permissions
 You'll also need to add permissions for `access_internet` and `run_background` in your `package.json` file.
